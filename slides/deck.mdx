@@ -9,8 +9,111 @@ export const theme = customTheme;
 
 ---
 
-```
-import { CodeSnipet } from './code-snippet';
+# What is Svelte?
 
-export default () => <CodeSnippet />
+- JavaScript UI Library created by Rich Harris
+- Small runtime, more done at compile time
+- No virtual DOM
+
+---
+
+### Anatomy of a Svelte Component
+
+- CSS inside a `<style>` tag
+- JavaScript inside a `<script>` tag
+- HTML-like markup at the bottom
+
+---
+
+import { FullScreenCode } from 'mdx-deck';
+
+<FullScreenCode>
+
+```html
+<style>
+  input {
+    border: 0.0625rem solid var(--color-border);
+    border-radius: 0.1875rem;
+    padding: 0.25rem;
+    font-size: 1rem;
+    font-weight: 300;
+  }
+</style>
+
+<script>
+  export let placeholder;
+  export let value;
+</script>
+
+<input {placeholder} on:focus bind:value type="text" />
 ```
+
+</FullScreenCode>
+
+---
+
+import TableLayout from './layouts/table';
+
+<TableLayout>
+
+| Feature      | Svelte                                 | React (hooks)                                                |
+| ------------ | -------------------------------------- | ------------------------------------------------------------ |
+| Props        | `export let someProp = 'defaultValue'` | `({ someProp = 'defaultValue'}) => …`                        |
+| State        | `let someState = 'defaultValue'`       | `const [someState, setSomeState] = useState('defaultValue')` |
+| Children     | `<slot>optional fallback</slot>`       | `({ children }) => <div>{ children }</div>`                  |
+| Styles       | `<style>…</style>`                     | no opinion                                                   |
+| Lifecycle    | `import { onMount } from 'svelte'`     | `import { useEffect } from 'react'`                          |
+| Markup       | custom template syntax                 | JSX                                                          |
+| DOM Ref      | `<div bind:this={domRef}>`             | `<div ref={domRef}>`                                         |
+| Global State | `svelte/store` module                  | `useContext` ?                                               |
+| Animation    | `svelte/{motion, transition}` modules  | `CSSTransition` ?                                            |
+
+</TableLayout>
+
+---
+
+### Next : React :: Sapper : Svelte
+
+- Although …
+- Sapper is part of the Svelte GitHub Org
+- Draws a lot of inspiration from Next (and now vice versa)
+  - API routes
+  - Parameterized routes
+
+---
+
+### Data loading
+
+Special `preload` function for `routes/*.svelte`
+
+```html
+<script context="module">
+  export function preload() {
+    // returned object keys mapped to props
+    return this.fetch(apiURL)
+      .then(r => r.json())
+      .then(data => ({ data }));
+  }
+</script>
+```
+
+---
+
+# Demo
+
+---
+
+# Things I Liked
+
+- `{#async}` block
+- Unused CSS selector warnings
+- `_layout` files
+- Bundle size
+
+---
+
+# Things I Missed
+
+- Full CSS in JS features
+- TypeScript support is still a bit WIP
+- React ecosystem

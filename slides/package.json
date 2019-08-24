@@ -6,5 +6,10 @@
   },
   "devDependencies": {
     "mdx-deck": "^3.0.9"
+  },
+  "dependencies": {
+    "@emotion/styled": "^10.0.17",
+    "emotion": "^10.0.17",
+    "rebass": "^4.0.5"
   }
 }
